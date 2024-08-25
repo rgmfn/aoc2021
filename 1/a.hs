@@ -1,19 +1,13 @@
-import qualified Data.Text    as Text
-import qualified Data.Text.IO as Text
+import Data.Text qualified as Text
+import Data.Text.IO qualified as Text
 
-diffs list = map (\(x, y) -> y - x) (zip list (tail list))
-norm x
-    | x <= 0 = 0
-    | otherwise = 1
+import Utils
 
 solve :: [Int] -> Int
-solve = sum . (map norm) . diffs
-
-textToInts :: [Text.Text] -> [Int]
-textToInts = map (read . Text.unpack)
+solve = sum . map norm . diffs
 
 main :: IO ()
 main = do
-    ls <- fmap Text.lines (Text.readFile "input.txt")
-    let input = textToInts ls
-    print (solve input)
+  ls <- fmap Text.lines (Text.readFile "input.txt")
+  let input = textToInts ls
+  print (solve input)
